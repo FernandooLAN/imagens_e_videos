@@ -1,0 +1,1 @@
+# contém a lógica principal de detecção para UM vídeo
