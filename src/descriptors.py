@@ -1,1 +1,0 @@
-# implementação dos descritores (Histograma e BIC)
