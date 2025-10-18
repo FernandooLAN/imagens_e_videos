@@ -16,6 +16,8 @@ Trailer revelação de Pokemon X Y - https://www.youtube.com/watch?v=IfclgYT7h-A
 
 Primeiro trailer do Minecraft - https://www.youtube.com/watch?v=MmB9b5njVbA 
 
-Unboxing Galaxy S25 Series | Samsung - https://youtu.be/_9sBc08FYEU?si=eFBjhopDEgEGeLY4
+6 Mind Blowing New Nature Documentaries | Only on Netflix - https://youtu.be/DBqcdkgnT1E?si=V-xKvk37ciqLAg_8
 
 The Legend of Korra ~ Official Trailer 720p HD (Corrected Speed) - https://youtu.be/54srZLuYfb0?si=s3hpjWIG_hLU7ssN
+ 
+I Want It That Way | Brooklyn Nine-Nine - https://youtu.be/HlBYdiXdUa8?si=1zlHwhi7FsXWULoE

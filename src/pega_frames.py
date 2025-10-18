@@ -29,6 +29,8 @@ while True:
         pass
     elif key == ord('r'):
         frames_registrados.append(numero_do_frame)
+    elif key == ord('e'):
+        break
 
     numero_do_frame += salto
 
