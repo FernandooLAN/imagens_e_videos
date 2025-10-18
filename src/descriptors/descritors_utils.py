@@ -60,15 +60,51 @@ def quantizar_imagem(imagem):
     return imagem // 64
 
 def particao_retangulo_central(image: np.array, percent: float = 0.1):
-
-    return 1
-
-def mapeia_quantizacao(pixel_RGB):
     """
-    Função que mapeia um pixel quantizado 4x4x4 num histograma com 64 posições
+    Cria duas partições, uma com o retângulo interior e outra com o retângulo exterior
+
+    O retângulo exterior possui o mesmo tamanho da imagem original, mas possui valor -1
     """
-    red = pixel_RGB[0]
-    green = pixel_RGB[1] 
-    blue = pixel_RGB[2]
+    y1 = int(image.shape[0] * percent)
+    y2 = int(image.shape[0] * (1 - percent))
+
+    x1 = int(image.shape[1] * percent)
+    x2 = int(image.shape[1] * (1 - percent))
+
+    retangulo_interno = image[y1:y2, x1:x2]
+    retangulo_externo = image.copy().astype(int)
+
+    for i in range(y1, y2):
+        for j in range(x1, x2):
+            retangulo_externo[i,j] = (-1,-1,-1)
+
+    return retangulo_interno, retangulo_externo
+
+def mapeia_quantizacao(q_img):
+    """
+    Mapeia a imagem quantizada (3 canais) para uma imagem de 1 canal (bins 0-63).
+    Retorna a imagem mapeada e uma máscara de pixels válidos.
+    """
+    # Cria uma máscara para pixels válidos (ignorando o marcador -1)
+    # q_img[..., 0] pega o primeiro canal (ex: Azul) de todos os pixels
+    valid_mask = (q_img[..., 0] != -1)
     
-    return red*16 + green*4 + blue*1
+    # Cria uma imagem de saída, preenchida com -1 (nosso marcador)
+    mapped_img = np.full((q_img.shape[0], q_img.shape[1]), -1, dtype=np.int32)
+    
+    # Pega apenas os pixels válidos para o cálculo
+    valid_pixels = q_img[valid_mask]
+    
+    # --- ESTA É A LÓGICA QUE EU ASSUMI ---
+    # Mapeia BGR (4x4x4) para um bin de 0-63
+    # B*16 + G*4 + R
+    mapped_bins = (valid_pixels[..., 0] * 16 +
+                   valid_pixels[..., 1] * 4 +
+                   valid_pixels[..., 2])
+    # --- FIM DA LÓGICA ASSUMIDA ---
+
+    # Coloca os bins calculados de volta na imagem de saída,
+    # apenas nas posições válidas
+    mapped_img[valid_mask] = mapped_bins
+    
+    return mapped_img, valid_mask
