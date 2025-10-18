@@ -59,6 +59,10 @@ def quantizar_imagem(imagem):
     """
     return imagem // 64
 
+def particao_retangulo_central(image: np.array, percent: float = 0.1):
+
+    return 1
+
 def mapeia_quantizacao(pixel_RGB):
     """
     Função que mapeia um pixel quantizado 4x4x4 num histograma com 64 posições

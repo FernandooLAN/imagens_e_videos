@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-from DistanciaEQuantizacao import * 
+from descriptors.descritors_utils import * 
 
 def pixels_borda_interior(imagem):
     """
