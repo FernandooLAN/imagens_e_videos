@@ -2,7 +2,7 @@
 from descriptors.Bic import gerar_histograma_bic_com_particao
 from descriptors.HistogramaLocal import gerar_histograma_local_com_particao
 from descriptors.descritors_utils import particao_retangulo_central, dLog
-from utils import gerar_tabela_markdown
+from utils import gerar_tabela_markdown, acuracia
 import cv2
 import sys
 import numpy as np
@@ -89,12 +89,16 @@ for i in range(n_row):
         (str(frames_registrados_HistLocal[i]) if i < len(frames_registrados_HistLocal) else "") + "\t" +
         (str(frames_ref[i]) if i < len(frames_ref) else "")
     )
-
+# Acuracia dos métodos
+acuracia_bic = acuracia(frames_ref, frames_registrados_BIC)
+acuracia_histLocal = acuracia(frames_ref, frames_registrados_HistLocal)
 
 # Gera a tabela Markdown com os resultados
 header = f"""
 **Alunos** André Okimoto, Fernado Nascimento, Guilherme Correa\n
 **Video** {isolate}\n
+**Acurácia Histograma Local**: {acuracia_histLocal:.2f}%\n
+**Acurácia BIC**: {acuracia_bic:.2f}%  \n
 """
 gerar_tabela_markdown(f"../docs/{isolate}.md",
                       [f"../quadros/ref/{isolate}_{numero_do_frame}_ref.jpg" for numero_do_frame in frames_ref],

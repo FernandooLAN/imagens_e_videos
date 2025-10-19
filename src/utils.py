@@ -31,3 +31,20 @@ def gerar_tabela_markdown(nome_arquivo, frames_ref, frames_hist_local, frames_bi
             arquivo.write(f"| ![[{ref}]] | ![[{hist}]] | ![[{bic}]] |\n")
 
     print(f"Tabela Markdown gerada com sucesso: {nome_arquivo}")
+
+def acuracia (frames_ref, frames_detected):
+        """
+        Calcula a acurácia de detecção de cenas.
+
+        :param frames_ref: Lista de frames de referência.
+        :param frames_detected: Lista de frames detectados.
+        :return: Acurácia como uma porcentagem.
+        """
+        verdadeiros_positivos = len(set(frames_ref) & set(frames_detected))
+        total_referencias = len(frames_ref)
+
+        if total_referencias == 0:
+            return 0.0
+
+        acuracia = (verdadeiros_positivos / total_referencias) * 100
+        return acuracia
