@@ -39,44 +39,54 @@ histBic_passado, histLocal_passado = np.zeros(256), np.zeros(128)
 
 # Loop principal para processar os frames do vídeo
 while True:
-    # Define o frame atual a ser lido
-    video.set(cv2.CAP_PROP_POS_FRAMES, numero_do_frame)
+    try:
+        # Define o frame atual a ser lido
+        video.set(cv2.CAP_PROP_POS_FRAMES, numero_do_frame)
 
-    # Lê o frame atual
-    ret, frame = video.read()
-    # Verifica se o frame foi lido corretamente
-    if not ret:
-        break
+        # Lê o frame atual
+        ret, frame = video.read()
+        # Verifica se o frame foi lido corretamente
+        if not ret or frame is None:
+            numero_do_frame += salto
+            continue
+        
+        # Divide o frame em regiões interna e externa
+        interno, externo = particao_retangulo_central(frame)
+
+        # Gera os histogramas BIC e Local para as regiões
+        histBic = gerar_histograma_bic_com_particao(interno, externo)
+        histLocal = gerar_histograma_local_com_particao(interno, externo)
+
+        # Calcula as diferenças entre os histogramas atuais e os anteriores
+        difBic = dLog(histBic_passado, histBic)
+        difLocal = dLog(histLocal_passado, histLocal)
+
+        # Verifica se a diferença BIC excede o limiar e registra o frame
+        if difBic > threshold:
+            frames_registrados_BIC.append(numero_do_frame)
+            cv2.imwrite(f"../quadros/bic/{isolate}_{numero_do_frame}_bic.jpg", frame)
+            histBic_passado = histBic
+
+        # Verifica se a diferença Local excede o limiar e registra o frame
+        if difLocal > threshold:
+            frames_registrados_HistLocal.append(numero_do_frame)
+            cv2.imwrite(f"../quadros/histLoc/{isolate}_{numero_do_frame}_histLocal.jpg", frame)
+            histLocal_passado = histLocal
+
+        if numero_do_frame in frames_ref:
+            cv2.imwrite(f"../quadros/ref/{isolate}_{numero_do_frame}_ref.jpg", frame)
+
+        # Incrementa o número do frame pelo valor do salto
+        numero_do_frame += salto    
+        print(f"Frame {numero_do_frame} processado.")
     
-    # Divide o frame em regiões interna e externa
-    interno, externo = particao_retangulo_central(frame)
+    except cv2.error as e:
+        print(f"Erro ao processar o frame {numero_do_frame}: {e}")
+        numero_do_frame += salto
+        continue
 
-    # Gera os histogramas BIC e Local para as regiões
-    histBic = gerar_histograma_bic_com_particao(interno, externo)
-    histLocal = gerar_histograma_local_com_particao(interno, externo)
-
-    # Calcula as diferenças entre os histogramas atuais e os anteriores
-    difBic = dLog(histBic_passado, histBic)
-    difLocal = dLog(histLocal_passado, histLocal)
-
-    # Verifica se a diferença BIC excede o limiar e registra o frame
-    if difBic > threshold:
-        frames_registrados_BIC.append(numero_do_frame)
-        cv2.imwrite(f"../quadros/bic/{isolate}_{numero_do_frame}_bic.jpg", frame)
-        histBic_passado = histBic
-
-    # Verifica se a diferença Local excede o limiar e registra o frame
-    if difLocal > threshold:
-        frames_registrados_HistLocal.append(numero_do_frame)
-        cv2.imwrite(f"../quadros/histLoc/{isolate}_{numero_do_frame}_histLocal.jpg", frame)
-        histLocal_passado = histLocal
-
-    if numero_do_frame in frames_ref:
-        cv2.imwrite(f"../quadros/ref/{isolate}_{numero_do_frame}_ref.jpg", frame)
-
-    # Incrementa o número do frame pelo valor do salto
-    numero_do_frame += salto    
-    print(f"Frame {numero_do_frame} processado.")
+    if numero_do_frame >= video.get(cv2.CAP_PROP_FRAME_COUNT):
+        break
 
 # Determina o número máximo de linhas para a saída
 n_row = max(len(frames_registrados_BIC), len(frames_registrados_HistLocal), len(frames_ref))
