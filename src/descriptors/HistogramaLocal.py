@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-from descritors_utils import *
+from .descritors_utils import *
 
 def gerar_histograma_local(img: np.array) -> np.array:
     """

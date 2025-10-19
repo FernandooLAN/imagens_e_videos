@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-from descritors_utils import * 
+from .descritors_utils import * 
 
 # Essa função foi feita manualmente antes, mas como demorava muito, pedi para
 # o gemini otimizar
@@ -91,6 +91,7 @@ interno, externo = particao_retangulo_central(imagem)
 
 histograma2 = gerar_histograma_bic_com_particao(interno, externo)
 
+# essa é a distância que diz o quão próxima as duas imagens estão
 distancia = dLog(histograma1, histograma2)
 print(distancia)
 """

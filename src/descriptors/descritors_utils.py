@@ -86,7 +86,6 @@ def mapeia_quantizacao(q_img):
     Retorna a imagem mapeada e uma máscara de pixels válidos.
     """
     # Cria uma máscara para pixels válidos (ignorando o marcador -1)
-    # q_img[..., 0] pega o primeiro canal (ex: Azul) de todos os pixels
     valid_mask = (q_img[..., 0] != -1)
     
     # Cria uma imagem de saída, preenchida com -1 (nosso marcador)
@@ -95,13 +94,11 @@ def mapeia_quantizacao(q_img):
     # Pega apenas os pixels válidos para o cálculo
     valid_pixels = q_img[valid_mask]
     
-    # --- ESTA É A LÓGICA QUE EU ASSUMI ---
     # Mapeia BGR (4x4x4) para um bin de 0-63
     # B*16 + G*4 + R
     mapped_bins = (valid_pixels[..., 0] * 16 +
                    valid_pixels[..., 1] * 4 +
                    valid_pixels[..., 2])
-    # --- FIM DA LÓGICA ASSUMIDA ---
 
     # Coloca os bins calculados de volta na imagem de saída,
     # apenas nas posições válidas

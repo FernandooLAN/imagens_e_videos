@@ -1,1 +1,6 @@
-# contém a lógica principal de detecção para UM vídeo
+from descriptors.Bic import gerar_histograma_bic_com_particao
+from descriptors.HistogramaLocal import gerar_histograma_local_com_particao
+from descriptors.descritors_utils import particao_retangulo_central, dLog
+import cv2
+import sys
+
