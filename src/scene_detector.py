@@ -2,12 +2,14 @@
 from descriptors.Bic import gerar_histograma_bic_com_particao
 from descriptors.HistogramaLocal import gerar_histograma_local_com_particao
 from descriptors.descritors_utils import particao_retangulo_central, dLog
+from utils import gerar_tabela_markdown
 import cv2
 import sys
 import numpy as np
 
 # Obtém os argumentos de linha de comando: nome do vídeo, arquivo de registro e limiar
 nome_do_video = sys.argv[1]
+isolate = nome_do_video.split("/")[-1].split(".")[0]
 registro = sys.argv[2]
 
 # Lê os frames de referência do arquivo de registro
@@ -60,12 +62,17 @@ while True:
     # Verifica se a diferença BIC excede o limiar e registra o frame
     if difBic > threshold:
         frames_registrados_BIC.append(numero_do_frame)
+        cv2.imwrite(f"../quadros/bic/{isolate}_{numero_do_frame}_bic.jpg", frame)
         histBic_passado = histBic
 
     # Verifica se a diferença Local excede o limiar e registra o frame
     if difLocal > threshold:
         frames_registrados_HistLocal.append(numero_do_frame)
+        cv2.imwrite(f"../quadros/histLoc/{isolate}_{numero_do_frame}_histLocal.jpg", frame)
         histLocal_passado = histLocal
+
+    if numero_do_frame in frames_ref:
+        cv2.imwrite(f"../quadros/ref/{isolate}_{numero_do_frame}_ref.jpg", frame)
 
     # Incrementa o número do frame pelo valor do salto
     numero_do_frame += salto    
@@ -82,6 +89,19 @@ for i in range(n_row):
         (str(frames_registrados_HistLocal[i]) if i < len(frames_registrados_HistLocal) else "") + "\t" +
         (str(frames_ref[i]) if i < len(frames_ref) else "")
     )
+
+
+# Gera a tabela Markdown com os resultados
+header = f"""
+**Alunos** André Okimoto, Fernado Nascimento, Guilherme Correa\n
+**Video** {isolate}\n
+"""
+gerar_tabela_markdown(f"../docs/{isolate}.md",
+                      [f"../quadros/ref/{isolate}_{numero_do_frame}_ref.jpg" for numero_do_frame in frames_ref],
+                      [f"../quadros/histLoc/{isolate}_{numero_do_frame}_histLocal.jpg" for numero_do_frame in frames_registrados_HistLocal],
+                      [f"../quadros/bic/{isolate}_{numero_do_frame}_bic.jpg" for numero_do_frame in frames_registrados_BIC],
+                    header=header)
+
 
 # Libera os recursos do vídeo e fecha as janelas abertas
 video.release()
