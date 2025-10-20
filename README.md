@@ -1,8 +1,10 @@
 # imagens_e_videos
 
-Drive com os vídeos já baixados: https://drive.google.com/drive/folders/1PwNbgRQ2Jv7ZdjegVozcmlFZLUxugH7J?usp=sharing
+Drive com os vídeos já baixados, além dos relatórios com as cenas detectadas de cada um dos vídeos: 
 
-alguns links
+https://drive.google.com/drive/folders/1PwNbgRQ2Jv7ZdjegVozcmlFZLUxugH7J?usp=sharing
+
+Links:
 
 Game of Thrones - Batalha dos Bastardos: https://www.youtube.com/watch?v=zrfBcB_2itU
 
@@ -36,21 +38,12 @@ LEVI vs. TITÃ BESTIAL (DUBLADO) - https://www.youtube.com/watch?v=hpMZhZ23j0c
 
 ## Como testar?
 
-1. Crie um diretório `quadros` e três diretórios dentro dele, `ref`, `histLoc` e `bic`
-```bash
-mkdir -p quadros/{ref,histLoc,bic}
-```
-
-2. Entre no diretório `src`
+1. Entre no diretório `src`
 ```bash
 cd src
 ```
 
-3. Rode o arquivo `scene_detector.py` (é preciso das bibliotecas `cv2` e `numpy`) no seguinte formato
+2. Rode o arquivo `scene_detector.py` (é preciso das bibliotecas `cv2` e `numpy`) no seguinte formato
 ```
 python3 scene_detector.py <path do vídeo> <path do arquivo de frames manual> <valor do threshold>
 ```
-
---- 
-
-## PDFs importantes
