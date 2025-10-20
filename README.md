@@ -50,3 +50,7 @@ cd src
 ```
 python3 scene_detector.py <path do vídeo> <path do arquivo de frames manual> <valor do threshold>
 ```
+
+--- 
+
+## PDFs importantes
