@@ -100,8 +100,8 @@ for i in range(n_row):
         (str(frames_ref[i]) if i < len(frames_ref) else "")
     )
 # Acuracia dos métodos
-acuracia_bic = acuracia(frames_ref, frames_registrados_BIC)
-acuracia_histLocal = acuracia(frames_ref, frames_registrados_HistLocal)
+acuracia_bic = acuracia(frames_ref, frames_registrados_BIC, salto)
+acuracia_histLocal = acuracia(frames_ref, frames_registrados_HistLocal, salto)
 
 # Gera a tabela Markdown com os resultados
 header = f"""
