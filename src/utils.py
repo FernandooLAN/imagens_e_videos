@@ -48,3 +48,42 @@ def acuracia (frames_ref, frames_detected):
 
         acuracia = (verdadeiros_positivos / total_referencias) * 100
         return acuracia
+
+# ...existing code...
+def acuracia(frames_ref, frames_detected, frame_rate=30):
+    """
+    Calcula a acurácia de detecção de cenas.
+
+    :param frames_ref: Lista de frames de referência.
+    :param frames_detected: Lista de frames detectados.
+    :param frame_rate: Tolerância em número de frames (inteiro >= 0).
+    :return: Acurácia como uma porcentagem.
+    """
+    if not frames_ref:
+        return 0.0
+
+    # Mantém compatibilidade com comportamento anterior quando frame_rate == 0
+    if not frame_rate:
+        verdadeiros_positivos = len(set(frames_ref) & set(frames_detected))
+        return (verdadeiros_positivos / len(frames_ref)) * 100
+
+    # Garante listas mutáveis e ordenadas (não obrigatório, mas facilita lógica)
+    refs = list(frames_ref)
+    detected = list(frames_detected)
+    matched = [False] * len(detected)
+    verdadeiros_positivos = 0
+
+    for ref in refs:
+        for i, det in enumerate(detected):
+            if not matched[i]:
+                try:
+                    # assume valores numéricos; se não, convertendo pode falhar
+                    if abs(int(det) - int(ref)) <= int(frame_rate):
+                        matched[i] = True
+                        verdadeiros_positivos += 1
+                        break
+                except Exception:
+                    # se conversão falhar, pula este par
+                    continue
+
+    return (verdadeiros_positivos / len(refs)) * 100
