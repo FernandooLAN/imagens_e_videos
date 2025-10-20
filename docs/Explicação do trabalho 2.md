@@ -16,4 +16,8 @@ Como solicitado no trabalho, usamos o histograma local e o BIC.
 
 ## (Detecção de cena, caso queira falar)
 
+O `scene_detctor.py` analisa um frame a cada segundo de vídeo. Comparando um histograma artificial (vetores de  128 e 256 posições com valor 0)  na primeira iteração e guardando o valor dos histograma atual para a próxima iteração. Se a comparação dos histogramas com o dLog for maior que o valor de threshold passado então o frame é interpretado como uma nova cena e salvo.
 ## Acurácia
+
+A função calcula baseado nos frames detectados e nos frames de referencia. Recebe ambas as listas de numero de frames e opcionalmente o frame rate do video, importante para calcular o espaço temporal de um segundo a mais ou a menos ao redor de um frame detectado. 
+Cada frame que seja identificado como dentro da faixa de tolerância ao redor da referencia é contado como um verdadeiro positivo. A acurácia no final é a quantidade de verdadeiros positivos dividido pela quantidade de frames de referencia.
