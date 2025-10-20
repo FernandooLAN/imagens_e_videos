@@ -14,3 +14,6 @@ Como solicitado no trabalho, usamos o histograma local e o BIC.
 - Histograma local: Gera um histograma com 64 bins para cada partição, totalizando um vetor de características final de tamanho 128 
 - BIC: Gera 2 histogramas (borda e interior) de 64 bins para cada partição, totalizando um vetor de características final de tamanho 256
 
+## (Detecção de cena, caso queira falar)
+
+## Acurácia
