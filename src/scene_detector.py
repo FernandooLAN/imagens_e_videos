@@ -106,6 +106,7 @@ acuracia_histLocal = acuracia(frames_ref, frames_registrados_HistLocal, salto)
 # Gera a tabela Markdown com os resultados
 header = f"""
 **Alunos** André Okimoto, Fernado Nascimento, Guilherme Correa\n
+**Threshold**: {threshold}\n
 **Video** {isolate}\n
 **Acurácia Histograma Local**: {acuracia_histLocal:.2f}%\n
 **Acurácia BIC**: {acuracia_bic:.2f}%  \n
