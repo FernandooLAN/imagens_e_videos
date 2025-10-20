@@ -1,1 +1,0 @@
-# executa para cada vídeo e gera a tabela final
