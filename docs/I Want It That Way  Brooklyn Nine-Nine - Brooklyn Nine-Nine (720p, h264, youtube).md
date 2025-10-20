@@ -1,5 +1,5 @@
 
-**Alunos** André Okimoto, Fernado Nascimento, Guilherme Correa
+**Alunos** André Okimoto, Fernando Nascimento, Guilherme Correa
 
 **Threshold**: 40.0
 
