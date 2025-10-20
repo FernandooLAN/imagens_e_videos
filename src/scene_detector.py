@@ -73,9 +73,6 @@ while True:
             cv2.imwrite(f"../quadros/histLoc/{isolate}_{numero_do_frame}_histLocal.jpg", frame)
             histLocal_passado = histLocal
 
-        if numero_do_frame in frames_ref:
-            cv2.imwrite(f"../quadros/ref/{isolate}_{numero_do_frame}_ref.jpg", frame)
-
         # Incrementa o número do frame pelo valor do salto
         numero_do_frame += salto    
         print(f"Frame {numero_do_frame} processado.")
@@ -87,6 +84,16 @@ while True:
 
     if numero_do_frame >= video.get(cv2.CAP_PROP_FRAME_COUNT):
         break
+
+for numero_do_frame in frames_ref:
+    # Define o frame atual a ser lido
+    video.set(cv2.CAP_PROP_POS_FRAMES, numero_do_frame)
+    
+    # Lê o frame atual
+    ret, frame = video.read()
+
+    cv2.imwrite(f"../quadros/ref/{isolate}_{numero_do_frame}_ref.jpg", frame)
+
 
 # Determina o número máximo de linhas para a saída
 n_row = max(len(frames_registrados_BIC), len(frames_registrados_HistLocal), len(frames_ref))
