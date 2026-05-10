@@ -1,0 +1,15 @@
+services:
+  avaliador_baseline:
+    build: .
+    volumes:
+      - .:/app
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'        # Máximo equivalente a 1 núcleo
+          memory: 2G         # Limite de RAM (Out-of-Memory se ultrapassar)
+        reservations:
+          cpus: '1.0'        # O SO deve reservar 1 núcleo para este contêiner
+          memory: 1G         # Garantia de RAM livre disponível
+    # Desativa o uso de swap
+    mem_swappiness: 0
