@@ -93,7 +93,7 @@ def coleta_baseline_video_completo(caminho_video: Path, arquivo_csv_saida: Path,
 
 if __name__ == "__main__":
     VIDEO_BASELINE = Path("data/videos/minecraft_trailer.mp4")
-    ARQUIVO_SAIDA = Path("dados_baseline_video_completo.csv")
+    ARQUIVO_SAIDA = Path("baseline.csv")
 
     coleta_baseline_video_completo(
         caminho_video=VIDEO_BASELINE,
