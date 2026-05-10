@@ -1,6 +1,16 @@
+__pycache__/
+
 data/
 output/
-__pycache__/
 quadros/
+
 .obsidian/
+.venv/
+.idea/
+
 *.mp4
+*.log
+*.bak
+
+bin/
+dist/
